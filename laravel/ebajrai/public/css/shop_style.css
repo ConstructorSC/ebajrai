@@ -1,0 +1,118 @@
+.content {
+    display: flex;
+    background-color: #F5F8F2;
+    height: auto;
+}
+
+.left_content {
+    padding: 20px;
+    background-color: white;
+    width: 15%;
+    border: 1px solid gainsboro;
+    font-size: 17px;
+    font-family: serif;
+    line-height: 35px;
+}
+
+.right_content {
+    padding: 15px;
+    display: flex;
+    background-color: #F5F8F2;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 90%;
+    border: 1px solid gainsboro;
+    font-size: 17px;
+    font-family: serif;
+}
+
+.item {
+    padding: 15px;
+    margin: 10px;
+    background-color: white;
+    width: 250px;
+    height: 300px;
+    border: 2px solid gainsboro;
+    border-radius: 10px;
+    font-size: 17px;
+    font-family: serif;
+    line-height: 30px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}   
+
+button {
+    background-color: #53B175;
+    color: white;
+    border: 2px solid gainsboro;
+    width: 50%;
+    height: 35px;
+    border-radius: 10px;
+}
+
+.quantity {
+    border: 2px solid gainsboro;
+    justify-content: center;
+    border-radius: 10px;
+    width: 45%;
+    height: 30px;
+    text-align: center;
+}
+
+.item_input {
+    align-content: center;
+    font-family: serif;
+    font-size: 17px;
+    text-align: center;
+}
+
+.description_box {
+    padding: 15px;
+    margin: auto;
+    margin-bottom: 15px;
+    background-color: white;
+    width: 85%;
+    height: 950px;
+    border: 2px solid gainsboro;
+    border-radius: 10px;
+    font-size: 17px;
+    font-family: serif;
+    line-height: 30px;
+}
+
+.item_input_des {
+    font-family: serif;
+    font-size: 18px;
+    text-align: center;
+}
+
+.button_des {
+    background-color: #53B175;
+    color: white;
+    border: 2px solid gainsboro;
+    width: 205px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.quantity_des {
+    border: 2px solid gainsboro;
+    justify-content: center;
+    border-radius: 10px;
+    width: 200px;
+    height: 45px;
+    text-align: center;
+}
+
+.delete {
+    background-color: white;
+    border: 2px solid #53B175;
+    color: darkslategray; 
+    width:110%;
+    float:right;
+}
