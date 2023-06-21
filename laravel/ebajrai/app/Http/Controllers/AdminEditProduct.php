@@ -79,7 +79,8 @@ class AdminEditProduct extends Controller
         }
 
         DB::update('update products set name=?,description=?,packing=?,price=?,stock_status=?,quantity=?,image=?,category_id=?,productPlacement=? where id=?', [$name,$description,$packing,$price,$stock_status,$quantity,$image,$category_id,$productPlacement,$id]);
-        return redirect()->back()->with('message', 'Product has been updated succesfully!');
+
+        return response()->json(['status'=>'Product has been updated succesfully!']);
     }
 
     function deleteProduct($slug)
