@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::put('editproduct/{id}', [AdminEditProduct::class, 'editProduct'])->name("admin.editproduct");
+Route::delete('/admin/deleteproduct/{slug}', [AdminEditProduct::class, 'deleteProduct'])->name('admin.deleteproduct');

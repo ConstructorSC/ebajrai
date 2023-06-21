@@ -5,7 +5,7 @@
     <head>
         
         <title> Edit Product </title>
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
+
         <link rel="stylesheet" href="{{ asset('css/base_style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/shop_style.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/astyle.css') }}">
@@ -95,88 +95,54 @@
                     </div>
                 @endif
                 <div>
-                <h2 style="text-align: center"> Edit Product Details </h2> <br>
-                    <div class="bahagi">
+                    <form method="post" action="/editproduct/{{ $product[0]->id }}">
+                    @csrf
+                    <h2 style="text-align: center"> Edit Product Details </h2> <br>
+                        <div class="bahagi">
 
-                        <div> <label>Product name</label> </div>
-                        <div> <input type="text" name="nama" id="nama" value="{{ $product[0]->name }}"> </div>
+                            <div> <label>Product name</label> </div>
+                            <div> <input type="text" name="nama" value="{{ $product[0]->name }}"> </div>
 
-                        <div> <label>Description</label> </div> 
-                        <div> <textarea name="description" id="description"> {{ $product[0]->description }} </textarea> </div>
+                            <div> <label>Description</label> </div> 
+                            <div> <textarea name="description"> {{ $product[0]->description }} </textarea> </div>
 
-                        <div> <label>Packing Size</label> </div> 
-                        <div> <textarea name="packing" id="packing"> {{ $product[0]->packing }} </textarea> </div>
+                            <div> <label>Packing Size</label> </div> 
+                            <div> <textarea name="packing"> {{ $product[0]->packing }} </textarea> </div>
 
-                        <div> <label>Price</label> </div>
-                        <div> <input type="text" name="price" id="price" value="{{ $product[0]->price }}"> </div>
+                            <div> <label>Price</label> </div>
+                            <div> <input type="text" name="price" value="{{ $product[0]->price }}"> </div>
 
-                        <div> <label>Stock Status</label> </div> 
-                        <div> <select name="stock_status" id="stock_status" value="{{ $product[0]->stock_status }}"> 
-                                <option value="instock"> InStock </option>
-                                <option value="outofstock"> OutOfStock </option>
-                        </select> </div>
+                            <div> <label>Stock Status</label> </div> 
+                            <div> <select name="stock_status" value="{{ $product[0]->stock_status }}"> 
+                                    <option value="instock"> InStock </option>
+                                    <option value="outofstock"> OutOfStock </option>
+                            </select> </div>
 
-                        <div> <label>Stock Quantity</label> </div> 
-                        <div> <input type="text" name="quantity" id="quantity" value="{{ $product[0]->quantity }}"> </div>
+                            <div> <label>Stock Quantity</label> </div> 
+                            <div> <input type="text" name="quantity" value="{{ $product[0]->quantity }}"> </div>
 
-                        <div> <label>Product Image</label> </div>
-                        <div> <input type="file" id="image" style="background-color: white; border: none" name="image" value="{{ $product[0]->image }}">
+                            <div> <label>Product Image</label> </div>
+                            <div> <input type="file" style="background-color: white; border: none" name="image" value="{{ $product[0]->image }}">
+                            </div>
+                            
+                            <div> <label>Category</label> </div>
+                            <div> <select name="category_id">
+                                <option value="1" @if ($product[0]->category_id == "1") selected @endif> Fruits and Vegetables </option>
+                                <option value="2" @if ($product[0]->category_id == "2") selected @endif> Dairy and Egg </option>
+                                <option value="3" @if ($product[0]->category_id == "3") selected @endif> Meat and Fish </option>
+                                <option value="4" @if ($product[0]->category_id == "4") selected @endif> Beverage </option>
+                            </select> </div>
+
+                            <div> <label>Product Placement</label> </div> 
+                            <div> <input type="text" name="productPlacement" value="{{ $product[0]->productPlacement }}"> </div>
+
                         </div>
-                        
-                        <div> <label>Category</label> </div>
-                        <div> <select name="category_id" id="category_id">
-                            <option value="1" @if ($product[0]->category_id == "1") selected @endif> Fruits and Vegetables </option>
-                            <option value="2" @if ($product[0]->category_id == "2") selected @endif> Dairy and Egg </option>
-                            <option value="3" @if ($product[0]->category_id == "3") selected @endif> Meat and Fish </option>
-                            <option value="4" @if ($product[0]->category_id == "4") selected @endif> Beverage </option>
-                        </select> </div>
-
-                        <div> <label>Product Placement</label> </div> 
-                        <div> <input type="text" id="productPlacement" name="productPlacement" value="{{ $product[0]->productPlacement }}"> </div>
-
-                    </div>
-                <br><br>
-                <div style="display: flex; justify-content: flex-end"><button id="update"  data-link="{{route('admin.editproduct', $product[0]->id)}}" type="submit"> Update Product </button></div>
-               </div>
+                    <br><br>
+                    <div style="display: flex; justify-content: flex-end"><button type="submit"> Update Product </button></div>
+                    </form>
+                </div>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $("#update").click(function (event) {
-
-                    var formData = {
-                        nama: $("#nama").val(),
-                        description: $("#description").val(),
-                        packing: $("#packing").val(),
-                        price: $("#price").val(),
-                        stock_status: $("#stock_status").val(),
-                        quantity: $("#quantity").val(),
-                        image: $("#image").val(),
-                        category_id: $("#category_id").val(),
-                        productPlacement: $("#productPlacement").val()
-                    };
-                    
-                    var url = $(this).data("link");
-
-                    $.ajax({
-                        type: "PUT",
-                        url: url,
-                        data: formData,
-                        dataType: 'json',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            window.location.href = "{{route('home2')}}";
-                        },
-                        error: function(xhr) {
-                            alert(xhr.responseText);
-                        }
-                    });
-                });
-            });
-        </script>
     </body>
 
 </html>

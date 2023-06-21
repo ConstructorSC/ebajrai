@@ -80,12 +80,19 @@ class AdminEditProduct extends Controller
 
         DB::update('update products set name=?,description=?,packing=?,price=?,stock_status=?,quantity=?,image=?,category_id=?,productPlacement=? where id=?', [$name,$description,$packing,$price,$stock_status,$quantity,$image,$category_id,$productPlacement,$id]);
 
-        return response()->json(['status'=>'Product has been updated succesfully!']);
+        return redirect()->back()->with('message', 'Product has been updated succesfully!');
     }
 
     function deleteProduct($slug)
     {
-        DB::delete('delete from products where slug=?', [$slug]);
-        return redirect('/')->with('message', 'Product has been deleted succesfully!');
+        $saved = DB::delete('delete from products where slug=?', [$slug]);
+        if($saved)
+        {
+            return response()->json(['message' => 'Product has been deleted succesfully!']);
+        }
+        else
+        {
+            return response()->json(['message' => 'Product has not been deleted succesfully!']);
+        }
     }
 }

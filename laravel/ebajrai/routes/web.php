@@ -54,5 +54,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('/admin/addproduct', [AdminEditProduct::class, 'addForm'])->name('admin.add');
     Route::post('/addproduct', [AdminEditProduct::class, 'addProduct'])->name('addproduct');
     Route::get('/admin/editproduct/{id}', [AdminEditProduct::class, 'editForm']);
-    Route::get('/admin/deleteproduct/{slug}', [AdminEditProduct::class, 'deleteProduct']);
+    Route::post('/editproduct/{id}', [AdminEditProduct::class, 'editProduct']);
 });
