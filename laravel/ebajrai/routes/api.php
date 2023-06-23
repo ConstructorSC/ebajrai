@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('products', [AdminEditProduct::class, 'getProducts']);
 Route::delete('/admin/deleteproduct/{slug}', [AdminEditProduct::class, 'deleteProduct'])->name('admin.deleteproduct');

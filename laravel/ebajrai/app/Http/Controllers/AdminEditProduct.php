@@ -10,6 +10,12 @@ use DB;
 
 class AdminEditProduct extends Controller
 {
+
+    function getProducts() {
+        $products = Product::all();
+        return response()->json($products);
+    }
+
     function addForm()
     {
         return view('edit.addproduct');
