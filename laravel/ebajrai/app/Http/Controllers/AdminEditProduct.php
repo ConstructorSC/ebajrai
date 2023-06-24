@@ -6,13 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Livewire\Component;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class AdminEditProduct extends Controller
 {
+    private $productModel;
+    private $db;
+
+    public function __construct(Product $productModel, DB $db)
+    {
+        $this->productModel = $productModel;
+        $this->db = $db;
+    }
 
     function getProducts() {
-        $products = Product::all();
+        $products = $this->productModel->all();
         return response()->json($products);
     }
 
@@ -21,10 +29,50 @@ class AdminEditProduct extends Controller
         return view('edit.addproduct');
     }
 
+    // function addProduct(Request $request)
+    // {
+    //     $product = new Product();
+
+    //     $product->name = $request->input('nama');
+    //     $product->slug = $request->input('slug'); 
+    //     $product->description = $request->input('description'); 
+    //     $product->packing = $request->input('packing'); 
+    //     $product->price = $request->input('price'); 
+    //     $product->stock_status = $request->input('stock_status'); 
+    //     $product->quantity = $request->input('quantity'); 
+    //     $product->category_id = $request->input('category_id');
+    //     $product->productPlacement = $request->input('productPlacement');
+        
+    //     if ($request->hasfile('image'))
+    //     {
+    //         $file = $request->file('image');
+    //         $extension = $file->getClientOriginalExtension();
+    //         $filename = time() . '.' . $extension;
+    //         $file->move('images/', $filename);
+    //         $product->image = $filename;
+    //     } 
+    //     else
+    //     {
+    //         return $request;
+    //         $product->image = '';
+    //     }
+
+    //     $product->save();
+    //     return redirect('/admin/addproduct')->with('message', 'Product has been created succesfully!');
+    // }
+
     function addProduct(Request $request)
     {
-        $product = new Product();
+        $product = $this->createProduct($request);
+        $this->uploadProductImage($product, $request);
+        $product->save();
+        
+        return redirect('/admin/addproduct')->with('message', 'Product has been created successfully!');
+    }
 
+    private function createProduct(Request $request)
+    {
+        $product = new Product();
         $product->name = $request->input('nama');
         $product->slug = $request->input('slug'); 
         $product->description = $request->input('description'); 
@@ -35,6 +83,11 @@ class AdminEditProduct extends Controller
         $product->category_id = $request->input('category_id');
         $product->productPlacement = $request->input('productPlacement');
         
+        return $product;
+    }
+
+    private function uploadProductImage(Product $product, Request $request)
+    {
         if ($request->hasfile('image'))
         {
             $file = $request->file('image');
@@ -42,15 +95,11 @@ class AdminEditProduct extends Controller
             $filename = time() . '.' . $extension;
             $file->move('images/', $filename);
             $product->image = $filename;
-        } 
+        }
         else
         {
-            return $request;
             $product->image = '';
         }
-
-        $product->save();
-        return redirect('/admin/addproduct')->with('message', 'Product has been created succesfully!');
     }
 
     function editForm($id)
