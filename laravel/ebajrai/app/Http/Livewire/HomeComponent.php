@@ -21,9 +21,10 @@ class HomeComponent extends Component
         $this->getProductsFromApi();
     }
 
-    public function store($product_id,$product_name,$product_price)
+    public function store($productID)
     {
-        Cart::add($product_id,$product_name,1,$product_price)->associate('App\Models\Product');
+        $product = Product::findOrFail($productID);
+        Cart::add($product->id,$product->name,1,$product->price)->associate('App\Models\Product');
         session()->flash('success_message','Item added in Cart');
         return redirect()->route('product.cart');
     }

@@ -59,7 +59,7 @@
                          @elseif (Auth::user()->utype === 'USR')
                             <form class="item_input"> 
                                 <input type="number" name="chicken" size="5" value="1" class="quantity">
-                                <button name="add" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->price}})"> Add </button>
+                                <button name="add" wire:click.prevent="store({{$product->id}})"> Add </button>
                             </form>
                         @endauth
                         @else 
