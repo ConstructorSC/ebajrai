@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminAddProduct;
 use App\Http\Controllers\AdminEditProduct;
 use App\Http\Livewire\AboutShopComponent;
 use App\Http\Livewire\ThankyouComponent;
+use App\Http\Controllers\DetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::get('/', HomeComponent::class)->name('home1');
 Route::get('/cart', CartComponent::class)->name('product.cart');;
 Route::get('/product-category/{category_slug}', CategoryComponent::class)->name('product.category');
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
+// Route::get('/product/{slug}', [DetailsController::class, 'render'])->name('product.details');
 Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 Route::post('/checkout/placeorder', [CheckoutComponent::class, 'placeOrder'])->name('submitOrder');
 Route::get('/aboutus', AboutShopComponent::class)->name('aboutshop');
